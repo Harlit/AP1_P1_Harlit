@@ -1,1 +1,143 @@
 @page "/Registro"
+@page "/Registro/{RegistroId:int}"
+
+@inject RegistrosBLL RegistrosBLL
+@inject NotificationService notificationService
+
+<EditForm Model="registro" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+    <div class="card">
+        <div class="card-header">
+            <h3>Registro de registro</h3>
+        </div>
+        <div class="card-body">
+            <div class="container overflow-hidden">
+                <div class="row gy-6">
+
+                    @*RegistroId*@
+                    <label>Registro ID</label>
+                    <div class="form-r ow align-items-center">
+                        <div class="col">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <InputNumber @bind-Value="registro.RegistroId" class="form-control" />
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-primary" type="button" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                     @*RegistroDetalles*@
+            <div class="form-group">
+                <label>Detalle</label>
+                <InputText @bind-Value="registro.Detalle" class="form-control" />
+                <ValidationMessage For="@(() => registro.Detalle)" />
+            </div>
+                    <div class="card-footer">
+            <div class="form-group text-center" display: inline-block>
+                <button type="button" class="btn btn-lg btn-primary bi bi-file-earmark-plus" @onclick="Nuevo"> Nuevo</button>
+                <button type="submit" class="btn btn-lg btn-success bi bi-file-earmark"> Guardar</button>
+                <button  type="button" class="btn btn-lg btn-danger bi bi-trash"  @onclick="Eliminar" > Eliminar</button> 
+            </div>
+        </div>
+        </div>
+
+        </div>
+
+        </div>
+
+    </div>
+</EditForm>
+
+
+
+
+
+
+
+
+
+@code {
+
+    [Parameter]
+    public int RegistroId { get; set; }
+    public Registros registro { get; set; } = new Registros();
+    public String mensaje { get; set; } = "";
+
+    protected override void OnInitialized()
+    {
+        if (RegistroId > 0)
+        {
+            
+            this.registro.RegistroId = RegistroId;
+            this.Buscar();
+        }
+    }
+
+    public void Nuevo()
+    {
+        mensaje = "";
+        registro = new Registros();
+    }
+
+    @* bool Validar()
+    {
+        return registro.lo_que_tenga_que_validar.Contains("lo_que_tenga_que_validar");
+    } *@
+
+    public void Guardar()
+    {
+
+        bool guardo = RegistrosBLL.Guardar(registro);
+
+        if (guardo)
+        {
+            ShowNotification(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Guardado correctamente"
+            });
+
+            Nuevo();
+        }
+    }
+    private void Buscar()
+    {
+        if (registro.RegistroId > 0)
+        {
+            var encontrado = RegistrosBLL.Buscar(registro.RegistroId);
+
+            if (encontrado != null)
+                this.registro = encontrado;
+        }
+    }
+
+    public void Eliminar()
+    {
+        bool elimino;
+
+        elimino = RegistrosBLL.Eliminar(registro);
+
+        if (elimino)
+        {
+            ShowNotification(
+            new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Elimanado correctamente"
+            });
+            Nuevo();
+
+        }
+    }
+
+    void ShowNotification(NotificationMessage message)
+    {
+        notificationService.Notify(message);
+
+    }
+}

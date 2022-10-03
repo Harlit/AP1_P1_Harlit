@@ -14,7 +14,7 @@ options.UseSqlite(ConStr)
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<NotificationService>();
-
+builder.Services.AddScoped<RegistrosBLL>();
 
 
 var app = builder.Build();
