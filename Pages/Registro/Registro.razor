@@ -1,10 +1,10 @@
-@page "/Registro"
+@* @page "/Registro"
 @page "/Registro/{RegistroId:int}"
 
 @inject RegistrosBLL RegistrosBLL
-@inject NotificationService notificationService
+@inject NotificationService notificationService *@
 
-<EditForm Model="registro" OnValidSubmit="Guardar">
+@* <EditForm Model="registro" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
     <div class="card">
         <div class="card-header">
@@ -12,10 +12,10 @@
         </div>
         <div class="card-body">
             <div class="container overflow-hidden">
-                <div class="row gy-6">
+                <div class="row gy-6"> *@
 
                     @*RegistroId*@
-                    <label>Registro ID</label>
+                    @* <label>Registro ID</label>
                     <div class="form-r ow align-items-center">
                         <div class="col">
                             <div class="form-group">
@@ -27,11 +27,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> *@
 
 
                      @*RegistroDetalles*@
-            <div class="form-group">
+            @* <div class="form-group">
                 <label>Detalle</label>
                 <InputText @bind-Value="registro.Detalle" class="form-control" />
                 <ValidationMessage For="@(() => registro.Detalle)" />
@@ -47,12 +47,10 @@
 
         </div>
 
-        </div>
+        </div> *@
 
-    </div>
-</EditForm>
-
-
+    @* </div>
+</EditForm>   *@
 
 
 
@@ -60,7 +58,9 @@
 
 
 
-@code {
+
+@code 
+@* {
 
     [Parameter]
     public int RegistroId { get; set; }
@@ -83,10 +83,10 @@
         registro = new Registros();
     }
 
-    @* bool Validar()
+     bool Validar()
     {
         return registro.lo_que_tenga_que_validar.Contains("lo_que_tenga_que_validar");
-    } *@
+    } 
 
     public void Guardar()
     {
@@ -140,4 +140,4 @@
         notificationService.Notify(message);
 
     }
-}
+} *@
