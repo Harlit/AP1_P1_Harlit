@@ -1,5 +1,5 @@
-@* @page "/Consulta"
-@inject RegistrosBLL RegistrosBLL;
+@page "/Consulta"
+@inject AportesBLL AportesBLL;
 
 <EditForm Model="Informacion">
     <DataAnnotationsValidator />
@@ -7,7 +7,7 @@
             <form>
                 <div>
 
-                    <button type="button" @onclick="Buscar">Buscar Registros</button>
+                    <button type="button" @onclick="Buscar">Buscar Aportes</button>
 
                 </div>
             </form>
@@ -15,14 +15,14 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>RegistroId</th>
+                    <th>AporteId</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Informacion)
                 {
                     <tr>
-                        <td>@item.RegistroId</td>
+                        <td>@item.AporteId</td>
                         
                     </tr>
                 }
@@ -33,13 +33,13 @@
 
 @code {
 
-    public Registros registro { set; get; } = new Registros();
+    public Aportes aporte { set; get; } = new Aportes();
     public string Filtro { get; set; }
     public string Criterio { get; set; }
-    public List<Registros> Informacion { get; set; } = new List<Registros>();
+    public List<Aportes> Informacion { get; set; } = new List<Aportes>();
     public void Buscar()
     {
-        Informacion = RegistrosBLL.GetList(o => true);
+        Informacion = AportesBLL.GetList(o => true);
     }
 
-} *@
+} 
