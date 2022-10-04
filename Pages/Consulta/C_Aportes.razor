@@ -3,6 +3,29 @@
 
 <EditForm Model="Informacion">
     <DataAnnotationsValidator />
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Consulta de Aporte</h3>
+        </div>
+
+        
+                @*Fecha*@
+             <div class="form-group">
+                <label>Desde</label>
+                <InputDate @bind-Value="aporte.Fecha" class="form-control" />
+                <ValidationMessage For="@(() => aporte.Fecha)" />
+
+                
+             
+            <label>Campo a Filtrar</label>  
+
+            <InputSelect @bind-Value="aporte.Persona" class="form-control"  />
+            <ValidationMessage For="@(() => aporte.Persona)" />  
+             
+            </div>
+
+               
         <div class="card-body">
             <form>
                 <div>
@@ -20,6 +43,7 @@
                     <th>Persona</th>
                     <th>Observacion</th>
                     <th>Monto</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -27,19 +51,23 @@
                 {
                     <tr>
                         <td>@item.AporteId</td>
-                        <td>@item.Fecha</td>
+                        <td>@item.Fecha</td> 
                         <td>@item.Persona</td>
                         <td>@item.Observacion</td>
                         <td>@item.Monto</td>
-
-
-
-
-                        
+                        @*SI ELIMINO FECHA Y OBSERVACION ME NO ME PERMITE ELIMINAR ):*@
                     </tr>
                 }
             </tbody>
         </table>
+        <div>
+            <tr>
+                Conteo 
+            </tr>
+        </div>
+    </div>    
+    
+
     
 </EditForm>
 
@@ -53,5 +81,5 @@
     {
         Informacion = AportesBLL.GetList(o => true);
     }
-
+    
 } 

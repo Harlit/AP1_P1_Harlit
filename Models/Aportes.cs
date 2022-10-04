@@ -7,6 +7,7 @@ public class Aportes
     [Required(ErrorMessage= "La fecha es requerida")]
     public DateTime Fecha { get; set; }
 
+
     [Required(ErrorMessage =" Se requiere Persona")]
     public string? Persona { get; set;}
 
